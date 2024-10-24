@@ -11,7 +11,7 @@
                     <div class="row g-4">
 {#                        <form action="." method="GET">#}
                             {% include 'shop/search.html' %}
-                            {% include 'shop/sorting.html' %}
+                            {% include 'shop/sorting.html' with param=get_param%}
                             <div class="col-lg-3">
                                 <div class="row g-4">
                                     {% include 'shop/category.html' with categories=categories category_count=category_count %}

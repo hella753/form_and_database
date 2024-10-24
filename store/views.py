@@ -58,10 +58,9 @@ def category_listings(request, slug=None):
             product_name__icontains=q
         ).prefetch_related("tags")
 
-    # სორტირებისთვის მაგრამ პაგინაციასთან ერთად არ მუშაობას.
-    # მოგვიანებით მივუბრუნდები.
-    if request.POST.get('fruitlist'):
-        fruit_list = request.POST.get('fruitlist')
+    # სორტირებისთვის
+    if request.GET.get('fruitlist'):
+        fruit_list = request.GET.get('fruitlist')
         if fruit_list=="2":
             products = Product.objects.order_by("product_price")
 

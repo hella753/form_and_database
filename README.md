@@ -10,7 +10,7 @@ There are several records in the database for testing.
 * with the help of `forms.py` new product is added in the cart.
 * Products, Categories, ProductTags, orders, reviews can be added from the admin panel.
 * `CartItem` object is created every time the user presses the **"Add to Cart"** button either from the **shop** page or **product detail** page. User's cart is assigned to CartItem. Before the item gets added program checks if there is products of this amount left in the database.
-* Pagination works with filtering and search as well. (Not with sorting tho. I'll get back to it later)
+* Pagination works with filtering, search and sorting as well.
 * Search bar is working on homepage in both searching places: In **modal** and in **header**. It works on the Shop and Product Detail pages. **Filters the products by name.** Redirects to store:shop if the current url is different.
 * store/category has 2 root categories. They are both displayed in dropdown menu in navbar and have their urls but use the same view as shop.
 * Cart items count is displayed on the navbar cart icon. Cart items are also displayed on the order:cart and order:checkout
@@ -23,7 +23,7 @@ There are several records in the database for testing.
 * **order** - This app contains the models(Checkout(which is the order basically), Cart and CartItems) and 2 views for the cart and checkout.
 * **media** - All user uploaded images go to the media folder.
 * **static** - for static files: JS, CSS, Images that is being used are all stored there.
-* **templates** - avaialable templates.
+* **templates** - available templates.
 * **db.sqlite3** - Database file.
 
 
