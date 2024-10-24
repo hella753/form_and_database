@@ -1,0 +1,39 @@
+{% extends 'shop/base_shop.html' %}
+
+{% load static %}
+{% block shopcontent %}
+    {# shop start #}
+    <div class="container-fluid fruite py-5">
+        <div class="container py-5">
+            <h1 class="mb-4">Fresh fruits shop</h1>
+            <div class="row g-4">
+                <div class="col-lg-12">
+                    <div class="row g-4">
+{#                        <form action="." method="GET">#}
+                            {% include 'shop/search.html' %}
+                            {% include 'shop/sorting.html' %}
+                            <div class="col-lg-3">
+                                <div class="row g-4">
+                                    {% include 'shop/category.html' with categories=categories category_count=category_count %}
+                                    {% include 'shop/filtracia.html' with product_tags=product_tags %}
+                                    {% include 'shop/banner.html' %}
+                                </div>
+                            </div>
+{#                        </form>#}
+
+                        <div class="col-lg-9">
+                            <div class="row g-4 justify-content-center">
+                                {% for product in products_objects %}
+                                    {% include 'shop/product.html' with product=product %}
+                                {% endfor %}
+                            </div>
+                            {% include 'shop/pagination.html' with param=get_param %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# shop end #}
+
+{% endblock shopcontent %}

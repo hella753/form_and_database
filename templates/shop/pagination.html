@@ -1,0 +1,18 @@
+<div class="col-12">
+    <div class="pagination d-flex justify-content-center mt-5">
+        {% if products_objects.has_previous %}
+        <a href="?page={{ products_objects.previous_page_number }}&{% if param.q %}q={{ param.q }}{% endif %}{% if param.p %}p={{ param.p }}{% endif %}{% if param.t %}&t={{ param.t }}{% endif %}" class="rounded">&laquo;</a>
+        {% endif %}
+        {% for page in paginator.page_range %}
+            {% if products_objects.number == page %}
+                <a href="?page={{ forloop.counter }}&{% if param.q %}q={{ param.q }}{% endif %}{% if param.p %}p={{ param.p }}{% endif %}{% if param.t %}&t={{ param.t }}{% endif %}" class="active rounded">{{ forloop.counter }}</a>
+            {% else %}
+            <a href="?page={{ forloop.counter }}&{% if param.q %}q={{ param.q }}{% endif %}{% if param.p %}p={{ param.p }}{% endif %}{% if param.t %}&t={{ param.t }}{% endif %}" class="rounded">{{ forloop.counter }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if products_objects.has_next %}
+        <a href="?page={{ products_objects.next_page_number }}&{% if param.q %}q={{ param.q }}{% endif %}{% if param.p %}p={{ param.p }}{% endif %}{% if param.t %}&t={{ param.t }}{% endif %}" class="rounded">&raquo;</a>
+        {% endif %}
+
+    </div>
+</div>

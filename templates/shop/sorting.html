@@ -1,0 +1,15 @@
+<div class="col-xl-3">
+    <form action="." method="POST">
+        {% csrf_token %}
+        <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+            <label for="fruits">სორტირება :</label>
+            <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3">
+                <option name="nothing" value="1">არაფერი</option>
+                <option name="price" value="2">ფასის მიხედვით</option>
+            </select>
+        </div>
+        <button type="submit" value="Submit" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">
+            გასორტე
+        </button>
+    </form>
+</div>

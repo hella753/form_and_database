@@ -1,0 +1,29 @@
+<div>
+    <form action="." method="GET">
+        <div class="col-lg-12">
+            <div class="mb-3">
+                <h4 class="mb-2">ფასი</h4>
+                <input type="range" name="p" class="form-range w-100" id="rangeInput"
+                       min="0" max="100" oninput="amount.value=p.value" value={{ p.value }}>
+                <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0
+                </output>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="mb-3">
+                <h4>დამატებითი</h4>
+                {% for tag in product_tags.all %}
+                    <div class="mb-2">
+                        <input type="radio" name="t" class="me-2" id="Categories-1" name="Categories-1" value="{{ tag.id }}">
+                        <label for="Categories-3">{{ tag }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center my-4">
+            <button type="submit"
+               class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">გაფილტრე</button>
+        </div>
+    </form>
+
+</div>
