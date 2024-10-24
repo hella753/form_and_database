@@ -54,6 +54,8 @@ def category_listings(request, slug=None):
         q = request.GET.get('q')
         products = Product.objects.filter(product_name__icontains=q).prefetch_related("tags")
 
+
+    # სორტირებისთვის მაგრამ პაგინაციასთან ერთად არ მუშაობას. მოგვიანებით მივუბრუნდები.
     if request.POST.get('fruitlist'):
         fruit_list = request.POST.get('fruitlist')
         if fruit_list=="2":
