@@ -14,6 +14,7 @@ There are several records in the database for testing.
 * Search bar is working on homepage in both searching places: In **modal** and in **header**. It works on the Shop and Product Detail pages. **Filters the products by name.** Redirects to store:shop if the current url is different.
 * store/category has 2 root categories. They are both displayed in dropdown menu in navbar and have their urls but use the same view as shop.
 * Cart items count is displayed on the navbar cart icon. Cart items are also displayed on the order:cart and order:checkout
+* Slug is automatically generated with the help of Custom Admin.
 
 
 ## **Components** ##
@@ -39,8 +40,8 @@ There are several records in the database for testing.
 
 ### URLS
   * Home - is accessible on route `store/`
-  * Shop - is accessible on route `store/category/` or `store/category/fruit/` or `store/category/vegetable/`. you can access it from the dropdown menu in navbar as well.
-  * Detail - is accessible on route `store/product/raspberry/`. Change the raspberry with product name if needed. You can access the detail page from the shop when you click on the product as well. 
+  * Shop - is accessible on route `store/category/` or `store/category/xili/` or `store/category/bostneuli/`. you can access it from the dropdown menu in navbar as well.
+  * Detail - is accessible on route `store/product/jolo/`. Change the raspberry with product name if needed. You can access the detail page from the shop when you click on the product as well. 
   * Contact - is accessible on route `contact/`
   * Cart - is accessible on route `order/cart/`. You can also access this page by clicking the cart icon in the navbar 
   * Checkout - is accessible on route `order/checkout/`.

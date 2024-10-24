@@ -1,6 +1,7 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from versatileimagefield.fields import VersatileImageField
 
 
@@ -15,7 +16,7 @@ class Category(MPTTModel):
         related_name="children"
     )
     product_count = models.IntegerField(null=True, blank=True)
-    slug = models.SlugField(default="", null=False)
+    slug = models.SlugField(default="", blank=True)
 
     class MPTTMeta:
         order_insertion_by = ['category_name']
@@ -46,7 +47,7 @@ class Product(models.Model):
     product_quantity = models.IntegerField("მარაგშია:", null=True, blank=True)
     country = models.CharField("country", default="Agro Farm", max_length=150)
     weight = models.PositiveIntegerField("წონა", default=1)
-    slug = models.SlugField(default="", unique=True)
+    slug = models.SlugField(default="", unique=True, blank=True)
     tags = models.ManyToManyField("ProductTags", blank=True)
     # related_products = models.ManyToManyField("Product", verbose_name="მსგავსი პროდუქტები", blank=True)
 
