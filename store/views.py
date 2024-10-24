@@ -42,25 +42,28 @@ def category_listings(request, slug=None):
         # თუ სლაგი გადმოეცა ანუ რომელიმე კატეგორიაში ვართ.
         selected_category = Category.objects.filter(slug=slug)
         categories = selected_category.get_descendants(include_self=True)
-        products = Product.objects.filter(product_category__in=categories).prefetch_related("tags")
+        products = Product.objects.filter(
+            product_category__in=categories
+        ).prefetch_related("tags")
         categories = selected_category.get_descendants(include_self=False)
         # აგრეგაციისთვის ფუნქცია
         counting(categories, products)
 
     # ძებნისთვის. თუ 'q' ამოიღებს პროდუქტები გავფილტროთ.
     # გაითვალისწინეთ რომ ძიება და ფილტრაცია ერთდროულად არ ხდება.
-    # რადგან დიზაინს მირევდა ერთ ფორმაში თუ ვსვამდი ყველაფერს და ცალცალკე უწევს 😭.
+    # რადგან დიზაინს მირევდა ერთ ფორმაში თუ ვსვამდი ყველაფერს 😭.
     if request.GET.get('q'):
         q = request.GET.get('q')
-        products = Product.objects.filter(product_name__icontains=q).prefetch_related("tags")
+        products = Product.objects.filter(
+            product_name__icontains=q
+        ).prefetch_related("tags")
 
-
-    # სორტირებისთვის მაგრამ პაგინაციასთან ერთად არ მუშაობას. მოგვიანებით მივუბრუნდები.
+    # სორტირებისთვის მაგრამ პაგინაციასთან ერთად არ მუშაობას.
+    # მოგვიანებით მივუბრუნდები.
     if request.POST.get('fruitlist'):
         fruit_list = request.POST.get('fruitlist')
         if fruit_list=="2":
             products = Product.objects.order_by("product_price")
-
 
     # ფილტრაციისთვის. თუ 'p' ამოიღებს ფასის მიხედვით. 't' ტეგების მიხედვით.
     if request.GET.get('p') or request.GET.get('t'):
@@ -69,9 +72,12 @@ def category_listings(request, slug=None):
             tags=request.GET.get('t')
         ).prefetch_related("tags")
 
-    # გვჭირდება კალათის ამოღება რადგან გამოვაჩინოთ კონკრეტული მომხმარებლის კალათის პროდუქტების რაოდენობა
+    # გვჭირდება კალათის ამოღება რადგან გამოვაჩინოთ კონკრეტული
+    # მომხმარებლის კალათის პროდუქტების რაოდენობა
     cart = Cart.objects.get(user=request.user)
-    cartitems = CartItems.objects.filter(cart=cart).prefetch_related("product__tags")
+    cartitems = CartItems.objects.filter(
+        cart=cart
+    ).prefetch_related("product__tags")
     cart_count = cartitems.aggregate(cart_count=Count("id"))
 
     # პაგინაციისთვის
@@ -79,13 +85,15 @@ def category_listings(request, slug=None):
     page_number = request.GET.get('page')
     products_objects = paginator.get_page(page_number)
 
-    # თუ POST მეთოდი იქნება დავამატოთ კალათაში პროდუქტი და განვაახლოთ cart_count
+    # თუ POST მეთოდი იქნება დავამატოთ კალათაში პროდუქტი
+    # და განვაახლოთ cart_count
     if request.POST.get("name"):
         add_to_cart(request, products, cart)
         cart_count = cartitems.aggregate(cart_count=Count("id"))
     # ტიპს ვამოწმებ და ისე ვანიჭებ თორემ იბნევა პითონი
     if type(cart_count) == dict:
         cart_count = cart_count["cart_count"]
+
     context = {
         "categories": categories,
         "products": products.prefetch_related("tags"),
@@ -106,7 +114,9 @@ def contact(request):
 def product(request, slug):
     # ვიღებთ პროდუქტს და მის შეფასებებს
     individual_product = Product.objects.get(slug=slug)
-    product_reviews = ProductReviews.objects.filter(product=individual_product).select_related("user")
+    product_reviews = ProductReviews.objects.filter(
+        product=individual_product
+    ).select_related("user")
     categories = Category.objects.all().filter(parent__isnull=True)
     products = Product.objects.prefetch_related("product_category", "tags")
     counting(categories, products)
@@ -114,7 +124,9 @@ def product(request, slug):
 
     # კალათისთვის
     cart = Cart.objects.get(user=request.user)
-    cartitems = CartItems.objects.filter(cart=cart).prefetch_related("product__tags")
+    cartitems = CartItems.objects.filter(
+        cart=cart
+    ).prefetch_related("product__tags")
     cart_count = cartitems.aggregate(cart_count=Count("id"))
 
     if request.GET.get('q'):
@@ -122,7 +134,13 @@ def product(request, slug):
 
     if request.method == "POST":
         quantity = int(request.POST.get('product_quantity'))
-        add_to_cart(request, individual_product, cart, quantity, from_detail=True)
+        add_to_cart(
+            request,
+            individual_product,
+            cart,
+            quantity,
+            from_detail=True
+        )
         cart_count = cartitems.aggregate(cart_count=Count("id"))
 
     if type(cart_count) == dict:
